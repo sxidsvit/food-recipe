@@ -11,7 +11,8 @@ import {
 
 import { FONTS, COLORS, SIZES, icons, images, dummyData } from '../constants'
 
-import { CategoryCard } from '../components'
+import { CategoryCard, TrendingCard } from '../components'
+import { getPixelSizeForLayoutSize } from 'react-native/Libraries/Utilities/PixelRatio';
 
 const Home = ({ navigation }) => {
 
@@ -173,14 +174,44 @@ const Home = ({ navigation }) => {
                     keyExtractor={item => `${item.id}`}
                     renderItem={({ item, index }) => {
                         return (
-                            <View>
-                                <Text>{item.name}</Text>
-                            </View>
+                            <TrendingCard
+                                containerStyle={{
+                                    marginLeft: index == 0 ? SIZES.padding : 0
+                                }}
+                                recipeItem={item}
+                                onPress={() => navigation.navigate('Recipe', { recipe: item })}
+                            />
                         )
                     }}
 
                 />
 
+            </View>
+        )
+    }
+
+    function renderCategoryHeader() {
+        return (
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 20,
+                    marginHorizontal: SIZES.padding
+                }}
+            >
+
+                {/* Section Title  */}
+                <Text style={{ flex: 1, ...FONTS.h2 }}>
+                    Categories
+                </Text>
+
+                {/* View All  */}
+                <TouchableOpacity>
+                    <Text style={{ color: COLORS.gray, ...FONTS.bordy4 }}>
+                        View All
+                    </Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -201,14 +232,18 @@ const Home = ({ navigation }) => {
 
                         {/* Header  */}
                         {renderHeader()}
+
                         {/* Search Bar  */}
                         {renderSearchBar()}
+
                         {/* See Recipe Card  */}
                         {renderSeeRecipeCard()}
+
                         {/* Trending Section  */}
                         {renderTrendingSection()}
 
                         {/* Category Header  */}
+                        {renderCategoryHeader()}
 
                     </View>
                 }
