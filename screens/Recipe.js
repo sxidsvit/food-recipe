@@ -345,6 +345,26 @@ const Recipe = ({ navigation, route }) => {
         )
     }
 
+    function renderIngredientHeader() {
+        return (
+            <View
+                style={{
+                    flexDirection: 'row',
+                    paddingHorizontal: 30,
+                    marginTop: SIZES.radius,
+                    marginBottom: SIZES.padding
+                }}
+            >
+                <Text style={{ flex: 1, ...FONTS.h3 }}>
+                    Ingradient
+                </Text>
+                <Text style={{ color: COLORS.lightGray2, ...FONTS.body4 }}>
+                    {selectedRecipe?.ingredients.length} items
+                </Text>
+            </View>
+        )
+    }
+
     return (
         <View
             style={{
@@ -365,7 +385,7 @@ const Recipe = ({ navigation, route }) => {
                         {renderRecipeInfo()}
 
                         {/* Ingredient Title  */}
-
+                        {renderIngredientHeader()}
 
                     </View>
 
@@ -430,10 +450,9 @@ const Recipe = ({ navigation, route }) => {
                 ListFooterComponent={
                     <View
                         style={{
-                            height: HEADER_HEIGHT / 2
+                            marginBottom: 200
                         }}
-                    >
-                    </View>
+                    />
                 }
             />
             {/* Header Bar  */}
