@@ -7,8 +7,9 @@ import {
     Animated,
     Platform
 } from 'react-native';
-
 import { BlurView } from '@react-native-community/blur'
+
+import { Viewers } from '../components'
 import { SIZES, FONTS, COLORS, icons } from '../constants'
 
 const HEADER_HEIGHT = 350
@@ -306,6 +307,44 @@ const Recipe = ({ navigation, route }) => {
         )
     }
 
+    function renderRecipeInfo() {
+        return (
+            <View
+                style={{
+                    flexDirection: 'row',
+                    height: 130,
+                    width: SIZES.width,
+                    paddingHorizontal: 30,
+                    paddingVertical: 20,
+                    alignItems: 'center'
+                }}
+            >
+                {/* Recipe  */}
+                <View
+                    style={{
+                        flex: 1.5,
+                        justifyContent: 'center'
+                    }}
+                >
+                    <Text style={{ ...FONTS.h2 }}> {selectedRecipe?.name}</Text>
+                    <Text style={{ ...FONTS.body4, color: COLORS.lightGray2, marginTop: 5 }}>
+                        {selectedRecipe?.duration} | {selectedRecipe?.serving} Serving</Text>
+                </View>
+
+                {/* Viewers  */}
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: 'center'
+                    }}
+                >
+                    <Viewers viewersList={selectedRecipe?.viewers} />
+                </View>
+
+            </View>
+        )
+    }
+
     return (
         <View
             style={{
@@ -323,7 +362,7 @@ const Recipe = ({ navigation, route }) => {
                         {renderRecipeCardHeader()}
 
                         {/* Info  */}
-
+                        {renderRecipeInfo()}
 
                         {/* Ingredient Title  */}
 
@@ -391,10 +430,9 @@ const Recipe = ({ navigation, route }) => {
                 ListFooterComponent={
                     <View
                         style={{
-                            height: HEADER_HEIGHT
+                            height: HEADER_HEIGHT / 2
                         }}
                     >
-                        <Text> ПРИВЕТ от Футера </Text>
                     </View>
                 }
             />
